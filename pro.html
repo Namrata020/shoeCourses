@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            text-align: center;
+            padding: 20px;
+            margin: 50px;
+            background-color: teal;
+        }
+        .myclass {
+            display: none;
+        }
+
+        .myc {
+            display: block;
+            background-color: rgb(168, 63, 131);
+        }
+
+        button {
+            background-color: rgb(6, 100, 12);
+        }
+
+        #errnm,
+        #erraddr {
+            color: rgb(158, 5, 5);
+            font-size: medium;
+        }
+
+        #mdiv {
+            color: rgb(211, 35, 35);
+            font-size: x-large;
+            font-weight: bold;
+        }
+    </style>
+    <script src="./jQuery.js"></script>
+    <script>
+
+        function validate(id, errid) {
+            var v = $("#" + id).val();
+            if (v === "" || v.trim().length <= 0) {
+                $("#" + errid).html("DATA can't be empty!!");
+                return false;
+            } else {
+                $("#" + errid).html("");
+                return true;
+            }
+        }
+
+        $(document).ready(function () {
+            $('#show').change(function () {
+                flag = validate("nm", "errnm")
+                flag1 = validate("addr", "erraddr");
+                if (flag && flag1) {
+                    if ($('#show').is(':checked')) {
+                        $('#courses').removeClass('myclass');
+                        $('#courses').addClass('myc');
+                    } else {
+                        $('#courses').removeClass('myc');
+                        $('#courses').addClass('myclass');
+                    }
+                }
+            });
+            $('#displaybtn').click(function () {
+                var nm = $('#nm').val();
+                var addr = $('#addr').val();
+                var course = $("input[name='course']:checked").val();
+                //document.write(nm+ " , "+addr+" , "+course); ---> this will print output in a new document
+                $("#mdiv").html(nm + " , " + addr + " , " + course);
+            })
+        });    
+    </script>
+</head>
+
+<body>
+    <p></p>
+    <p></p>
+    <div>
+        <label>Name: </label><input type="text" id="nm" name="nm">&nbsp;&nbsp;<span id="errnm"></span><br><br>
+        <label>Address: </label><input type="text" id="addr" name="addr">&nbsp;&nbsp;<span id="erraddr"></span>
+        <br><br>
+        <input type="checkbox" id="show" value="show">&nbsp;<label for="show">Show courses</label>
+    </div>
+    <div id="courses" class="myclass">
+        <br><br>
+        <p>Select course and Click on Show Button to see the selected Data</p>
+        <input type="radio" name="course" id="java" value="java"><label for="java">JAVA</label>
+        <input type="radio" name="course" id="python" value="python"><label for="python">Python</label>
+        <input type="radio" name="course" id="c++" value="c++"><label for="c++">C++</label>
+        <input type="radio" name="course" id="dbms" value="dbms"><label for="dbms">DBMS</label>
+        <br><br>
+        <button type="btn" name="btn" id="displaybtn" value="show">Show</button>
+    </div>
+    <br><br>
+    <marquee direction="right"><div id="mdiv"></div></marquee>
+</body>
+
+</html>
